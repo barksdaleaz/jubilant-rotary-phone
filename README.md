@@ -10,4 +10,6 @@ FINANCE FOLDER: the second website we had to build for the CS50 Web Track - HTML
 
 PROJECT1 FOLDER: the second project in the CS50W course. Built a web application similar to how Goodreads works, where users can search for books, rate, and leave a comment, and see others' reviews. Based on the Goodreads' API. Implements Heroku PostgreSQL database.
 
+PROJECT2 FOLDER: the third project in the CS50W course (WORK IN PROGRESS). Using Flask Socket.IO to build a real-time chatting application.
+
 
