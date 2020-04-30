@@ -1,0 +1,25 @@
+{% extends "layout1.html" %}
+
+{% block title %}
+    Search
+{% endblock %}
+
+{% block main %}
+<div class="container">
+    <div class="pt-5 text-dark">
+        <header class="py-5 mt-5">
+          <h2 class="display-4 text-dark">Search for a book</h2>
+        </header>
+        <div class="card">
+          <h5 class="card-header font-weight-light text-dark">Enter an ISBN, title, or author</h5>
+          <div class="card-body">
+            <form action="/search" method="post">
+            <div class="form-group">
+              <input autocomplete="off" autofocus class="form-control" name="search" placeholder="ISBN, title, or author" type="text">
+            </div>
+            <button class="btn btn-primary" type="submit">Search</button>
+          </form>
+        </div>
+    </div>
+</div><!-- Main Col END -->
+{% endblock %}

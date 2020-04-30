@@ -1,0 +1,32 @@
+{% extends "layout1.html" %}
+
+{% block title %}
+    Register
+{% endblock %}
+
+{% block main %}
+<section class="py-5">
+  <div class="container">
+    <div class="col p-4">
+        <h1 class="display-4 text-dark">Register for Reader Review</h1>
+        <div class="card">
+            <h5 class="card-header font-weight-light text-dark">Register Here</h5>
+            <div class="card-body">
+            <form action="/register" method="post">
+              <div class="form-group">
+                <input autocomplete="off" autofocus class="form-control" name="username" placeholder="Username" type="text">
+              </div>
+              <div class="form-group">
+                <input class="form-control" name="password" placeholder="Password" type="password">
+              </div>
+              <div class="form-group">
+                <input class="form-control" name="confirmation" placeholder="Confirm Password" type="password">
+              </div>
+              <button class="btn btn-primary" type="submit">Register</button>
+            </form>
+            </div>
+        </div>
+    </div>
+  </div>
+</section><!-- Main Col END -->
+{% endblock %}

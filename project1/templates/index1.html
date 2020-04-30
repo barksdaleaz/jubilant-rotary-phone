@@ -1,0 +1,22 @@
+{% extends "layout1.html" %}
+
+{% block title %}
+  index
+{% endblock %}
+
+{% block main %}
+
+<!-- Page Content -->
+<section class="py-5">
+  <div class="container">
+    <h1 class="display-4 text-dark">Welcome to Reader Review</h1>
+    {% if session.user_id %}
+    <p class="lead text-dark"><a href="/search">Search for a book!</a></p>
+    {% else %}
+    <p class="lead text-dark">New to this page? Click "Register" to begin your reviewing journey!</p>
+    {% endif %}
+  </div>
+</section>
+
+
+{% endblock %}
