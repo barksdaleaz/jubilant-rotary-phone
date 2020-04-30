@@ -1,0 +1,48 @@
+{% extends "layout.html" %}
+{% block title %}{{ session.current_channel }}{% endblock %}
+{% block main %}
+<div>
+    <h1 style="margin-bottom: 1rem">
+        <span class="badge badge-dark">
+            {{ session.current_channel }}
+        </span>
+    </h1>
+
+</div>
+<div class="container-channel custom-window">
+    <div id="chat-box" class="list-group comment-container">
+        <ul id="comment-list" class="list-unstyled">
+          {% for message in messages %}
+            <li>{{ message.message_content }}</li>
+            <li>{{ message_data.message_content }}</li>
+            <li>{{ message_data.timestamp }}</li>
+          {% endfor %}
+          <li> test 1 </li>
+        </ul>
+    </div>
+
+    <div id="message-box">
+        <div class="form-border">
+            <div class="form-row">
+                <div class="form-group col-sm">
+                  <form id="sending-messages">
+                      <div class="input-group">
+                          <input id="message-input" class="form-control" size="50" placeholder="Enter message here" autocomplete="off" autofocus>
+                      </div>
+                      <div class="form-group col-sm-2">
+                          <button id="send-button" class="btn btn-success" type="submit">Send</button>
+                      </div>
+                  </form>
+                </div>
+                <div class="form-group col-sm-1">
+                    <a href="/" id="leave" class="button btn btn-warning">Leave</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="file-selector">
+        <input type="file" accept="image/*" class="form-control-file" id="exampleFormControlFile1">
+    </div>
+</div>
+<script src="{{ url_for('static', filename='js/scripts.js') }}"></script>
+{% endblock %}
