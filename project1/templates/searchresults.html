@@ -1,0 +1,44 @@
+{% extends "layout1.html" %}
+
+{% block title %}
+   Search Results
+{% endblock %}
+
+{% block main %}
+<div class="container py-5">
+  <header class="text-center text-dark">
+    <h2 class="display-4">This is what we found...</h2>
+  </header>
+  <div class="row py-5">
+    <div class="col-lg-10 mx-auto">
+      <div class="card rounded shadow border-0">
+        <div class="card-body p-5 bg-white rounded">
+          <div class="table-responsive text-dark">
+            <table id="example" style="width:100%" class="table table-striped table-bordered">
+              <thead>
+                <tr>
+                  <th>TITLE</th>
+                  <th>AUTHOR</th>
+                  <th>YEAR</th>
+                  <th>ISBN</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for book in books %}
+                    <tr>
+                      <td><a href="/book/{{book.isbn}}">{{book.title}}</a></td>
+                      <td>{{book.author}}</td>
+                      <td>{{book.year}}</td>
+                      <td>{{book.isbn}}</td>
+                    </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}
