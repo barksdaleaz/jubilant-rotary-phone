@@ -1,0 +1,55 @@
+{% extends "layout.html" %}
+{% block title %}Index{% endblock %}
+{% block main %}
+<div class="d-md-flex h-md-100 align-items-center">
+  <div class="col-md-6 p-0 bg-indigo h-md-100">
+    <div class="text-white d-md-flex align-items-center h-100 p-5 text-center justify-content-center">
+      <div class="logoarea pt-5 pb-5">
+        {% if session.username %}
+        <h1 id="user" class="display-4">Hey there, {{session.username}}!</h1>
+        <h3><small>Let's get chatting!</small></h3>
+        <p><small>If this isn't you, please <a href="/logout" style="color: white;">log out</a> and sign in with a different username.</small></p>
+          <form action="/create" method="post" id="new-channel">
+            <div class="input-group input-group-lg">
+              <div class="input-group-prepend">
+                <span class="input-group-text" id="inputGroup-sizing-lg">New Channel Name</span>
+              </div>
+              <input type="text" id="ch-name" name="ch-name" class="form-control" aria-label="Large" aria-describedby="inputGroup-sizing-sm">
+              <button type="submit">Create!</button>
+            </div>
+          </form>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-6 p-0 bg-pastel h-md-100 loginarea">
+    <div class="d-md-flex align-items-center h-md-100 p-5 justify-content-center">
+      <table class="table table-borderless table-hover">
+        <thead>
+          <tr>
+            <th><h3 class="display-4">jump back in!</h3></th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for channel in channels %}
+          <tr>
+            <td><h4><a onclick="joinchannel()" href="/channels/{{ channel }}" style="color: black;">{{ channel }}</a></h4></td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    {% else %}
+      <h1 class="display-4"><a href="/signin" style="color: white;">Sign in</a> to begin!</h1>
+    {% endif %}
+    </div>
+  </div>
+    <script>
+      if (localStorage.getItem('last_channel')) {
+        // Take them back to the channel they exited out of
+        let channel = localStorage.getItem('last_channel');
+        window.location.replace('/channels/' + channel);
+      }
+    </script>
+    <script src="{{ url_for('static', filename='js/scripts.js') }}"></script>
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/socket.io/1.3.6/socket.io.min.js"></script>
+{% endblock %}
