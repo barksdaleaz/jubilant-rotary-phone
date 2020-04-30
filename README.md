@@ -6,7 +6,7 @@ PSETS FOLDER: code for most of the problem sets we had to submit. In Python and 
 
 FIRSTSITE FOLDER: the first HTML/CSS-only website we had to create for the CS50 Web Track.
 
-FINANCE FOLDER: the second website we had to build for the CS50 Web Track - HTML/CSS, SQL database, API & Python
+FINANCE FOLDER: the second website we had to build for the CS50 Web Track - HTML/CSS, SQL database, API & Python. It is a finance website where users can search real stock info, buy/sell them (with fake money) and watch their portfolio grow!
 
 PROJECT1 FOLDER: the second project in the CS50W course. Built a web application similar to how Goodreads works, where users can search for books, rate, and leave a comment, and see others' reviews. Based on the Goodreads' API. Implements Heroku PostgreSQL database.
 
