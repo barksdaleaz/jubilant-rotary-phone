@@ -39,15 +39,16 @@ main .form-control
 }
 
 .custom-window {
-    box-shadow: 0 0 10px rgba(0,0,0,0.5);
-    border-radius: 15px;
-    padding: 30px;
+    /*box-shadow: 0 0 10px rgba(0,0,0,0.5);*/
+    border-radius: 5px;
+    padding: 20px;
 }
 
 .container-channel {
-    display: grid;
+    /*display: grid;
     grid-template-columns: auto;
-    grid-template-rows: 20rem 100px;
+    width: 500px;*/
+    grid-template-rows: 20rem 150px;
 }
 
 /* ID */
@@ -57,9 +58,26 @@ main .form-control
 }
 
 #message-box {
-    margin: 30px 20px 10px 30px;
+    margin: 10px 10px 10px 10px;
 }
 
-#chat {
+#chat-box {
     padding: 20px;
 }
+
+.comment-container {
+  margin-top: 15px;
+  overflow-y: scroll;
+  margin-left: auto;
+  margin-right: auto;
+  background-color: #ddd3ee;
+  width: 100%;
+  height: 100%;
+  padding: 10px 10px 10px 10px;
+}
+
+#message-input {
+  /*width: auto;*/
+  background-color: #e8e1f3;
+}
+
