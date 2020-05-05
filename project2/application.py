@@ -11,7 +11,7 @@ from flask_socketio import SocketIO, emit, send, join_room, leave_room
 # from: https://flask-socketio.readthedocs.io/en/latest/
 
 # a list of channels that exist
-existingchannels = {}
+existingchannels = []
 
 # a list of users that exist
 existingusers = []
@@ -77,19 +77,19 @@ def create():
             return render_template("error.html", message="That channel already exists. Try another one.")
         else:
             existingchannels.append(newchannelname)
-            existingchannels[newchannelname] = []
+            # existingchannels[newchannelname] = []
             # return jsonify({"success": True})
             # add channel to a gloabl dict of channels with messages
-            # channelmessages[newchannelname] = deque()
+            channelmessages[newchannelname] = deque()
         return render_template("index.html", channels=existingchannels)
     else:
         return render_template("index.html", channels=existingchannels)
 
 @app.route("/channels/<channel>", methods=["GET", "POST"])
-def channel(channel):
-    session['current_channel'] = channel
+def enter_channel(channel):
+    session["current_channel"] = channel
     if request.method == "GET":
-        return render_template("channel.html", channels=existingchannels)
+        return render_template("channel.html", channel=channel, messages=channelmessages[channel], chans=existingchannels)
     else:
         return redirect("/")
 
@@ -97,30 +97,35 @@ def channel(channel):
 def joined(data):
     room = session.get("current_channel")
     join_room(room)
+    print("someone has joined")
     emit("status", {"userJoined": session.get("username"),
                     "channel": room,
                     "msg": session.get("username") + " has entered the chat"},
                     room=room)
 
 @socketio.on("left")
-def left(room_to_leave):
-    #room = session.get("current_channel")
-    leave_room(room_to_leave)
+def left():
+    room = session.get("current_channel")
+    leave_room(room)
+    print("someone has left")
     emit("status",
         {"msg": session.get("username") + " has left the chat!! Tea~"},
-        room=room_to_leave)
+        room=room)
     return redirect("/")
 
 @socketio.on("send message")
 def sendmsg(message_data):
-    channel = message_data["current_channel"]
-    # count the number of messages
-    channel_message_count = len(existingchannels[channel])
-    # add the new message to the list
-    existingchannels[channel].append(message_data)
-    # if the messages exceed 100, delete the first one
-    if (channel_message_count > 100):
-        #channelmessages[channel].popleft()
-        del existingchannels[channel][0]
 
-    emit("announce message", message_data, broadcast=True, room=channel)
+    room = session.get("current_channel")
+    # add the new message to the list
+    channelmessages[room].append(message_data)
+    # if the messages exceed 100, delete the first one
+    if (len(channelmessages[room]) > 100):
+        channelmessages[room].popleft()
+    emit("announce message", message_data, broadcast=True)
+    print("end of send message")
+
+#@app.route("/convert", methods=["POST"])
+#def convert():
+    #channel = session.get("current_channel")
+    #return render_template("channel.html", channel=channel, messages=channelmessages[channel])
