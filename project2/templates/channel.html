@@ -1,48 +1,75 @@
 {% extends "layout.html" %}
 {% block title %}{{ session.current_channel }}{% endblock %}
 {% block main %}
-<div>
-    <h1 style="margin-bottom: 1rem">
-        <span class="badge badge-dark">
-            {{ session.current_channel }}
-        </span>
-    </h1>
 
-</div>
-<div class="container-channel custom-window">
-    <div id="chat-box" class="list-group comment-container">
-        <ul id="comment-list" class="list-unstyled">
-          {% for message in messages %}
-            <li>{{ message.message_content }}</li>
-            <li>{{ message_data.message_content }}</li>
-            <li>{{ message_data.timestamp }}</li>
+<div class="d-md-flex h-md-100 align-items-center">
+  <div class="col-md-2 p-0 bg-indigo h-md-100">
+    <div class="text-white d-md-flex align-items-center h-100 p-5 text-center justify-content-center">
+      <table class="table table-borderless table-hover">
+        <thead>
+          <tr>
+            <th><h4 id="thechannel" class="display-4">{{ session.current_channel }}</h4></th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for chan in chans %}
+          <tr>
+            <td><h4><a id="switch-channel" href="/channels/{{ chan }}" style="color: white;">{{ chan }}</a></h4></td>
+          </tr>
           {% endfor %}
-          <li> test 1 </li>
-        </ul>
+        </tbody>
+      </table>
     </div>
+  </div>
 
-    <div id="message-box">
-        <div class="form-border">
-            <div class="form-row">
-                <div class="form-group col-sm">
-                  <form id="sending-messages">
-                      <div class="input-group">
-                          <input id="message-input" class="form-control" size="50" placeholder="Enter message here" autocomplete="off" autofocus>
-                      </div>
-                      <div class="form-group col-sm-2">
-                          <button id="send-button" class="btn btn-success" type="submit">Send</button>
-                      </div>
-                  </form>
-                </div>
-                <div class="form-group col-sm-1">
-                    <a href="/" id="leave" class="button btn btn-warning">Leave</a>
+  <div class="col-md-10 p-0 bg-pastel h-md-100 loginarea">
+    <div class="d-md-flex align-items-center h-75 p-1 justify-content-center">
+      <!--<div class="container-channel custom-window">-->
+      <div class="h-100 w-100 custom-window">
+
+        <div id="chat-box" class="list-group comment-container">
+            <ul id="comment-list" class="list-unstyled" align="left">
+              {% for message in messages %}
+              <div>
+                <li><b>{{ message.user }}:</b> {{ message.message_content }}<li>
+              </div>
+              <div>
+                <li><small class="text-muted">{{ message.timestamp }}</small></li>
+              </div>
+              {% endfor %}
+            </ul>
+            <div class="media w-50 ml-auto mb-3">
+            </div>
+        </div>
+
+
+        <div id="message-box">
+            <div class="form-border w-100">
+                <div class="form-row w-100">
+                    <div class="form-group w-100">
+                      <form id="sending-messages" class="form-inline w-100">
+                          <div class="input-group">
+                              <input id="message-input" class="form-control w-100" placeholder="Enter message here" autocomplete="off" autofocus>
+                          </div>
+                          <button id="send-button" class="btn"><i class="fa fa-paper-plane"></i></button>
+                          <a href="/" id="leave" class="btn btn-outline-dark">Leave</a>
+                      </form>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-    <div id="file-selector">
-        <input type="file" accept="image/*" class="form-control-file" id="exampleFormControlFile1">
-    </div>
-</div>
+  </div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    var thechannel = document.querySelector('#thechannel').value;
+    thechannel = localStorage.setItem('current_channel', thechannel);
+    document.querySelector('#ch-button').onclick = () => {
+      alert(`You're in a channel called ${thechannel}`)
+    };
+  });
+</script>
 <script src="{{ url_for('static', filename='js/scripts.js') }}"></script>
 {% endblock %}
+
